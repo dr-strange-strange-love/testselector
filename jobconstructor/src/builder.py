@@ -23,9 +23,9 @@ class Builder():
 
 	def build_dict(self):
 		self.jod_dict['test_name'] = self.test_name
+		self.jod_dict['cmd_line'] = self.cmd_line
 		self.jod_dict['title'] = self.title
 		self.jod_dict.update(self.common_params)
 		self.jod_dict.update(self.specific_params)
-		self.jod_dict['cmd_line'] = self.cmd_line
 
 		return self.jod_dict
