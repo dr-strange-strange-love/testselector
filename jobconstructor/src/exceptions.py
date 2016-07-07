@@ -1,0 +1,3 @@
+
+class JobConstructorException(Exception):
+	pass

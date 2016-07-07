@@ -2,19 +2,17 @@
 import os
 import sys
 
+from . import exceptions
+
 class Decoder():
 	def __init__(self, rootpath, title):
 		self.rootpath = rootpath
 		self.title = title
+		self.validate_rootpath()
 
-	def check_rootpath(self):
-		# Trying to enter warehouse (rootpath)
-		try:
-			os.chdir(self.rootpath)
-		except OSError as e:
-			return -1 # Warehouse doesn't exist
-
-		return 0
+	def validate_rootpath(self):
+		if not os.path.exists(self.rootpath):
+			raise exceptions.JobConstructorException("Warehouse [{0}] couldn't be located".format(self.rootpath))
 
 	def get_package_name(self):
 		# Getting list of all subdirectories (packages) in rootpath
@@ -24,6 +22,6 @@ class Decoder():
 		test_name = max(set(os.path.commonprefix([subdir, self.title]) for subdir in subdirs)).rstrip('_-')
 
 		if test_name not in subdirs:
-			return -2 # Package (test_name) not found in warehouse
+			raise exceptions.JobConstructorException("Test package [{0}] couldn't be located".format(test_name))
 
 		return test_name
