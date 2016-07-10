@@ -22,7 +22,7 @@ class Builder():
 			'assigne': '',
 			'prefixes': '',
 			'components': '',
-			'fixverions': '',
+			'fixversions': '',
 			'title': '',
 			'base_cmd_line': '',
 			'spec_cmd_line': '',

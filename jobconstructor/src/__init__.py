@@ -1,6 +1,5 @@
 
 import imp
-import sys
 
 from . import builder
 from . import decoder
