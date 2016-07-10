@@ -1,11 +1,10 @@
 
 import os
-import sys
 import unittest
 
+from ..src import JobConstructor
 from ..src import builder
 from ..src import decoder
-from ..src import constructor
 
 class BuilderTestCase(unittest.TestCase):
 	def setUp(self):
@@ -21,93 +20,59 @@ class BuilderTestCase(unittest.TestCase):
 			'prepares': {
 				'master': [],
 				'ts': [('image', 'win_7_sp1_en_x64', {'edition': 'Windows 7 ULTIMATE', 'boot_arch': 'x86_64'})]
-			}
+			},
+
+			'base_cmd_line': '--ts {ts} --build {build} --validation'
 		}
 
 	def tearDown(self):
 		pass
-
-	def test_build_cmd(self):
-		expected_cmd_line = \
-		'python vzt-pgov/00main.py execute -- ' \
-		'--ts {ts} --build {build} --validation ' \
-		'--url-manager {url_manager} ' \
-		'--portal {portal} ' \
-		'--extra-param priority={priority} ' \
-		'--extra-param assignee={assignee} ' \
-		'--extra-param prefixes={prefixes} ' \
-		'--extra-param components={components} ' \
-		'--extra-param fixversions={fixversions} ' \
-		'--title {title}'
-
-		bldr = builder.Builder({}, {}, '', 'vzt-pgov')
-		bldr.build_cmd()
-		self.assertEqual(bldr.cmd_line, expected_cmd_line)
-
-	def test_build_cmd_2(self):
-		expected_cmd_line = \
-		'python vzt-hdd-stress/00main.py execute -- ' \
-		'--ts {ts} --build {build} --validation ' \
-		'--url-manager {url_manager} ' \
-		'--portal {portal} ' \
-		'--extra-param priority={priority} ' \
-		'--extra-param assignee={assignee} ' \
-		'--extra-param prefixes={prefixes} ' \
-		'--extra-param components={components} ' \
-		'--extra-param fixversions={fixversions} ' \
-		'--title {title}'
-
-		bldr = builder.Builder({}, {}, '', 'vzt-hdd-stress')
-		bldr.build_cmd()
-		self.assertEqual(bldr.cmd_line, expected_cmd_line)
 
 	def test_build_dict(self):
 		specifics_dict = {
 			'build': '3.5.0-31805',
 			'priority': '',
 			'components': 'QA_auto',
-			'fixversions': ''
+			'fixversions': '',
+			'spec_cmd_line': '--portal {portal}'
 		}
 
 		expected_dict = {
-			'priority': '',
-			'query_strings': {
-				'master': 'nodes.inv_no = 240',
-				'ts': 'nodes.inv_no = 368'
-			},
-			'build': '3.5.0-31805',
-			'components': 'QA_auto',
-			'title': 'vzt-pgov-win10x32-el_capitan-up',
-			'prepares': {
-				'master': [],
-				'ts': [('image', 'win_7_sp1_en_x64', {'edition': 'Windows 7 ULTIMATE', 'boot_arch': 'x86_64'})]
-			},
 			'test_name': 'vzt-pgov',
-			'fixversions': '',
+
 			'cmd_line': 'python vzt-pgov/00main.py execute -- ' \
-				'--ts {ts} --build {build} --validation ' \
-				'--url-manager {url_manager} ' \
-				'--portal {portal} ' \
 				'--extra-param priority={priority} ' \
 				'--extra-param assignee={assignee} ' \
 				'--extra-param prefixes={prefixes} ' \
 				'--extra-param components={components} ' \
 				'--extra-param fixversions={fixversions} ' \
-				'--title {title}'
+				'--title {title} ' \
+				'--base-cmd-line {base_cmd_line} ' \
+				'--spec-cmd-line {spec_cmd_line}',
+
+			'priority': '',
+			'assigne': '',
+			'prefixes': '',
+			'components': 'QA_auto',
+			'fixversions': '',
+			'title': 'vzt-pgov-win10x32-el_capitan-up',
+			'base_cmd_line': '--ts {ts} --build {build} --validation',
+			'spec_cmd_line': '--portal {portal}',
+
+			'build': '3.5.0-31805',
+
+			'query_strings': {
+				'master': 'nodes.inv_no = 240',
+				'ts': 'nodes.inv_no = 368'
+			},
+
+			'prepares': {
+				'master': [],
+				'ts': [('image', 'win_7_sp1_en_x64', {'edition': 'Windows 7 ULTIMATE', 'boot_arch': 'x86_64'})]
+			}
 		}
 
-		bldr = builder.Builder(self.commons_dict, specifics_dict, 'vzt-pgov-win10x32-el_capitan-up', 'vzt-pgov')
-		bldr.cmd_line = \
-		'python vzt-pgov/00main.py execute -- ' \
-		'--ts {ts} --build {build} --validation ' \
-		'--url-manager {url_manager} ' \
-		'--portal {portal} ' \
-		'--extra-param priority={priority} ' \
-		'--extra-param assignee={assignee} ' \
-		'--extra-param prefixes={prefixes} ' \
-		'--extra-param components={components} ' \
-		'--extra-param fixversions={fixversions} ' \
-		'--title {title}'
+		bldr = builder.Builder(self.commons_dict, specifics_dict, 'vzt-pgov', 'vzt-pgov-win10x32-el_capitan-up')
 		built_dict = bldr.build_dict()
 		self.assertEqual(cmp(built_dict, expected_dict), 0)
 
@@ -115,42 +80,41 @@ class BuilderTestCase(unittest.TestCase):
 		specifics_dict = {}
 
 		expected_dict = {
-			'priority': 'Blocker',
-			'query_strings': {
-				'master': 'nodes.inv_no = 240',
-				'ts': 'nodes.inv_no = 368'
-			},
-			'build': '3.5.0-31804',
-			'title': 'vzt-pgov-fedora-23-x86_64-yosemite-up',
-			'prepares': {
-				'master': [],
-				'ts': [('image', 'win_7_sp1_en_x64', {'edition': 'Windows 7 ULTIMATE', 'boot_arch': 'x86_64'})]
-			},
 			'test_name': 'vzt-pgov',
+
 			'cmd_line': 'python vzt-pgov/00main.py execute -- ' \
-				'--ts {ts} --build {build} --validation ' \
-				'--url-manager {url_manager} ' \
-				'--portal {portal} ' \
 				'--extra-param priority={priority} ' \
 				'--extra-param assignee={assignee} ' \
 				'--extra-param prefixes={prefixes} ' \
 				'--extra-param components={components} ' \
 				'--extra-param fixversions={fixversions} ' \
-				'--title {title}'
+				'--title {title} ' \
+				'--base-cmd-line {base_cmd_line} ' \
+				'--spec-cmd-line {spec_cmd_line}',
+
+			'priority': 'Blocker',
+			'assigne': '',
+			'prefixes': '',
+			'components': '',
+			'fixversions': '',
+			'title': 'vzt-pgov-fedora-23-x86_64-yosemite-up',
+			'base_cmd_line': '--ts {ts} --build {build} --validation',
+			'spec_cmd_line': '',
+
+			'build': '3.5.0-31804',
+
+			'query_strings': {
+				'master': 'nodes.inv_no = 240',
+				'ts': 'nodes.inv_no = 368'
+			},
+
+			'prepares': {
+				'master': [],
+				'ts': [('image', 'win_7_sp1_en_x64', {'edition': 'Windows 7 ULTIMATE', 'boot_arch': 'x86_64'})]
+			}
 		}
 
-		bldr = builder.Builder(self.commons_dict, specifics_dict, 'vzt-pgov-fedora-23-x86_64-yosemite-up', 'vzt-pgov')
-		bldr.cmd_line = \
-		'python vzt-pgov/00main.py execute -- ' \
-		'--ts {ts} --build {build} --validation ' \
-		'--url-manager {url_manager} ' \
-		'--portal {portal} ' \
-		'--extra-param priority={priority} ' \
-		'--extra-param assignee={assignee} ' \
-		'--extra-param prefixes={prefixes} ' \
-		'--extra-param components={components} ' \
-		'--extra-param fixversions={fixversions} ' \
-		'--title {title}'
+		bldr = builder.Builder(self.commons_dict, specifics_dict, 'vzt-pgov', 'vzt-pgov-fedora-23-x86_64-yosemite-up')
 		built_dict = bldr.build_dict()
 		self.assertEqual(cmp(built_dict, expected_dict), 0)
 
@@ -166,10 +130,6 @@ class DecoderTestCase(unittest.TestCase):
 	def tearDown(self):
 		pass
 
-	def test_check_rootpath(self):
-		dcdr = decoder.Decoder(self.rootpath, '')
-		self.assertEqual(dcdr.check_rootpath(), 0)
-
 	def test_get_package_name(self):
 		title = 'vzt-pgov-fedora-23-x86_64-yosemite-up'
 		expected_package_name = 'vzt-pgov'
@@ -178,13 +138,15 @@ class DecoderTestCase(unittest.TestCase):
 		self.assertEqual(dcdr.get_package_name(), expected_package_name)
 
 	def test_get_package_name_2(self):
-		title = 'vzt-pgov-stress-win10x32-yosemite-down'
+		title = 'vzt-pgov-stress_win10x32-yosemite-bottom'
 		expected_package_name = 'vzt-pgov-stress'
 
 		dcdr = decoder.Decoder(self.rootpath, title)
 		self.assertEqual(dcdr.get_package_name(), expected_package_name)
 
-class ConstructorTestCase(unittest.TestCase):
+
+
+class JobConstructorTestCase(unittest.TestCase):
 	def setUp(self):
 		if os.name == 'nt': # Windows
 			self.rootpath = 'C:\\Users\\Amadeus\\Documents\\Field\\testselector\\job_warehouse'
@@ -194,37 +156,45 @@ class ConstructorTestCase(unittest.TestCase):
 	def tearDown(self):
 		pass
 
-	def test_construct(self):
+	def test_get_job_by_title(self):
 		title = 'vzt-pgov-win10x32-el_capitan-up'
 		expected_dict = {
-			'priority': '',
-			'query_strings': {
-				'master': 'nodes.inv_no = 240',
-				'ts': 'nodes.inv_no = 368'
-			},
-			'build': '3.5.0-31805',
-			'components': 'QA_auto',
-			'title': 'vzt-pgov-win10x32-el_capitan-up',
-			'prepares': {
-				'master': [],
-				'ts': [('image', 'win_7_sp1_en_x64', {'edition': 'Windows 7 ULTIMATE', 'boot_arch': 'x86_64'})]
-			},
 			'test_name': 'vzt-pgov',
-			'fixversions': '',
+
 			'cmd_line': 'python vzt-pgov/00main.py execute -- ' \
-				'--ts {ts} --build {build} --validation ' \
-				'--url-manager {url_manager} ' \
-				'--portal {portal} ' \
 				'--extra-param priority={priority} ' \
 				'--extra-param assignee={assignee} ' \
 				'--extra-param prefixes={prefixes} ' \
 				'--extra-param components={components} ' \
 				'--extra-param fixversions={fixversions} ' \
-				'--title {title}'
+				'--title {title} ' \
+				'--base-cmd-line {base_cmd_line} ' \
+				'--spec-cmd-line {spec_cmd_line}',
+
+			'priority': '',
+			'assigne': '',
+			'prefixes': '',
+			'components': 'QA_auto',
+			'fixversions': '',
+			'title': 'vzt-pgov-win10x32-el_capitan-up',
+			'base_cmd_line': '--ts {ts} --build {build} --validation',
+			'spec_cmd_line': '--portal {portal}',
+
+			'build': '3.5.0-31805',
+
+			'query_strings': {
+				'master': 'nodes.inv_no = 240',
+				'ts': 'nodes.inv_no = 368'
+			},
+
+			'prepares': {
+				'master': [],
+				'ts': [('image', 'win_7_sp1_en_x64', {'edition': 'Windows 7 ULTIMATE', 'boot_arch': 'x86_64'})]
+			}
 		}
 
-		cstr = constructor.Constructor(self.rootpath, title)
-		built_dict = cstr.construct()
+		jc = JobConstructor(self.rootpath)
+		built_dict = jc.get_job_by_title(title)
 		self.assertEqual(cmp(built_dict, expected_dict), 0)
 
 
