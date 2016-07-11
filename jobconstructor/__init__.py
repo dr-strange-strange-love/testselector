@@ -8,6 +8,9 @@ For safety reasons jobconstructor provides interface to src.
 """
 
 from .src import JobConstructor as JC
+'''
+одного этого импорта будет достаточно, оборачивать не нужно
+'''
 
 class JobConstructor():
 	def __init__(self, rootpath):
