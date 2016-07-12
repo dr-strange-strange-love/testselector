@@ -122,10 +122,7 @@ class BuilderTestCase(unittest.TestCase):
 
 class DecoderTestCase(unittest.TestCase):
 	def setUp(self):
-		if os.name == 'nt': # Windows
-			self.rootpath = 'C:\\Users\\Amadeus\\Documents\\Field\\testselector\\job_warehouse'
-		else: # *nix
-			self.rootpath = '/home/amadeus/Documents/Field/testselector/job_warehouse'
+			self.rootpath = os.path.abspath('job_warehouse')
 
 	def tearDown(self):
 		pass
@@ -148,10 +145,7 @@ class DecoderTestCase(unittest.TestCase):
 
 class JobConstructorTestCase(unittest.TestCase):
 	def setUp(self):
-		if os.name == 'nt': # Windows
-			self.rootpath = 'C:\\Users\\Amadeus\\Documents\\Field\\testselector\\job_warehouse'
-		else: # *nix
-			self.rootpath = '/home/amadeus/Documents/Field/testselector/job_warehouse'
+		self.rootpath = os.path.abspath('job_warehouse')
 
 	def tearDown(self):
 		pass
