@@ -11,3 +11,9 @@ $ python -m jobconstructor.src --rootpath /home/amadeus/Documents/Field/testsele
 ```
 $ python -m jobconstructor.test.jct
 ```
+
+Пример установки пакета (версия для установки находится в ~/jobconstructor/dist):
+
+```
+$ python setup.py install
+```
