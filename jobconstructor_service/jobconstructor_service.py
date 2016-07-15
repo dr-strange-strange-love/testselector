@@ -2,7 +2,6 @@
 from flask import Flask, jsonify
 import os
 
-# jobconstructor here is src package
 from jobconstructor import JobConstructor
 from jobconstructor import exceptions
 
@@ -16,11 +15,7 @@ if application.debug is not True:
 	
 	handler = RotatingFileHandler("jobconstructor_service.log", maxBytes=100000000, backupCount=5)
 	handler.setLevel(logging.WARNING)
-	formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-'''
-%(module)s:%(lineno)d думаю будет удобнее чем %(name)s
-https://docs.python.org/3/library/logging.html#logrecord-attributes
-'''
+	formatter = logging.Formatter("%(asctime)s - %(module)s - %(lineno)d - %(levelname)s - %(message)s")
 	handler.setFormatter(formatter)
 	application.logger.addHandler(handler)
 
