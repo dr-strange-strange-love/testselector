@@ -6,16 +6,15 @@ class Builder():
 		self.test_name = test_name
 		self.title = title
 
-		self.cmd_line = \
-		'python ' + self.test_name + '/00main.py execute -- ' \
-		'--extra-param priority={priority} ' \
-		'--extra-param assignee={assignee} ' \
-		'--extra-param prefixes={prefixes} ' \
-		'--extra-param components={components} ' \
-		'--extra-param fixversions={fixversions} ' \
-		'--title {title} ' \
-		'--base-cmd-line {base_cmd_line} ' \
-		'--spec-cmd-line {spec_cmd_line}'
+		self.cmd_line = ('python ' + self.test_name + '/00main.py execute -- '
+		'--extra-param priority={priority} '
+		'--extra-param assignee={assignee} '
+		'--extra-param prefixes={prefixes} '
+		'--extra-param components={components} '
+		'--extra-param fixversions={fixversions} '
+		'--title {title} '
+		'{base_cmd_line} '
+		'{spec_cmd_line}')
 
 		self.job_dict = {
 			'priority': '',
