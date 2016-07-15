@@ -1,19 +1,9 @@
-## Testselector
+## TestSelector_v1.0
 
-Пример запуска программы:
+# Includes JobConstructor_v1.0 and JobConstructor_Service_v1.0
 
-```
-$ python -m jobconstructor.src --rootpath /home/amadeus/Documents/Field/testselector/job_warehouse --title vzt-pgov-win10x32-el_capitan-up
-```
-
-Пример запуска тестов:
+How to install (applies to jobjonstructor packages only):
 
 ```
-$ python -m jobconstructor.test.jct
-```
-
-Пример установки пакета (версия для установки находится в ~/jobconstructor/dist):
-
-```
-$ python setup.py install
+$ pip install git+https://github.com/dr-strange-strange-love/testselector
 ```
