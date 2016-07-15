@@ -1,5 +1,5 @@
 
-class Builder():
+class Builder(object):
 	def __init__(self, common_params, specific_params, test_name, title):
 		self.common_params = common_params
 		self.specific_params = specific_params

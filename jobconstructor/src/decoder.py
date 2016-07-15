@@ -3,7 +3,7 @@ import os
 
 from . import exceptions
 
-class Decoder():
+class Decoder(object):
 	def __init__(self, rootpath, title):
 		self.rootpath = rootpath
 		self.title = title
