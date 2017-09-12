@@ -1,0 +1,2 @@
+cd jobconstructor_service
+web: jobconstructor_service:application

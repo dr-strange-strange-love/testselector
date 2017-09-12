@@ -3,3 +3,7 @@ python:
   - "2.7"
 install: pip install git+https://github.com/dr-strange-strange-love/testselector
 script: python -m jobconstructor.test.jct
+deploy:
+  provider: heroku
+  app: sleepy-island-97222
+  api_key: 1c8d8537-ed3a-483b-aa7e-d5e038015341
