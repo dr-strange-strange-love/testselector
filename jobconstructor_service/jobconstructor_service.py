@@ -6,7 +6,7 @@ from jobconstructor import JobConstructor
 from jobconstructor import exceptions
 
 application = Flask(__name__)
-rootpath = "/Users/amadeus/Documents/testselector/job_warehouse"
+rootpath = "/hardcoded/rootpath"
 jc = JobConstructor(rootpath)
 
 if application.debug is not True:
