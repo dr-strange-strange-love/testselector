@@ -1,1 +1,1 @@
-web: cd jobconstructor && jobconstructor_service:application
+web: cd jobconstructor_service && jobconstructor_service:application
