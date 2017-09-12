@@ -1,1 +1,1 @@
-web: cd jobconstructor_service && jobconstructor_service:application
+web: cd jobconstructor_service && gunicorn jobconstructor_service:application
