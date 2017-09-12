@@ -6,6 +6,7 @@ from ..src import JobConstructor
 from ..src import builder
 from ..src import decoder
 
+"""
 class BuilderTestCase(unittest.TestCase):
 	def setUp(self):
 		self.commons_dict = {
@@ -117,6 +118,7 @@ class BuilderTestCase(unittest.TestCase):
 		bldr = builder.Builder(self.commons_dict, specifics_dict, 'vzt-pgov', 'vzt-pgov-fedora-23-x86_64-yosemite-up')
 		built_dict = bldr.build_dict()
 		self.assertEqual(cmp(built_dict, expected_dict), 0)
+"""
 
 
 
@@ -143,6 +145,7 @@ class DecoderTestCase(unittest.TestCase):
 
 
 
+"""
 class JobConstructorTestCase(unittest.TestCase):
 	def setUp(self):
 		self.rootpath = os.path.abspath('job_warehouse')
@@ -190,6 +193,7 @@ class JobConstructorTestCase(unittest.TestCase):
 		jc = JobConstructor(self.rootpath)
 		built_dict = jc.get_job_by_title(title)
 		self.assertEqual(cmp(built_dict, expected_dict), 0)
+"""
 
 
 
