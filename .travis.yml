@@ -7,4 +7,3 @@ deploy:
   provider: heroku
   app: sleepy-island-97222
   api_key: 1c8d8537-ed3a-483b-aa7e-d5e038015341
-script: curl https://sleepy-island-97222.herokuapp.com/
