@@ -21,7 +21,7 @@ if application.debug is not True:
 
 
 @application.route("/", methods=["GET"])
-def hello_world():
+def welcome():
 	return "Hello World"
 
 @application.route("/hello_world", methods=["GET"])
