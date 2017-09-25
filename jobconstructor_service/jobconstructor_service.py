@@ -24,6 +24,10 @@ if application.debug is not True:
 def hello_world():
 	return "Hello World"
 
+@application.route("/hello_world", methods=["GET"])
+def hello_world():
+	return "Hello, World!"
+
 @application.route("/api/v1.0/job", methods=["GET"])
 def get_info():
 	if not os.path.exists(rootpath):
