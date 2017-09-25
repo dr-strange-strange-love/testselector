@@ -20,6 +20,9 @@ if application.debug is not True:
 	application.logger.addHandler(handler)
 
 
+@application.route("/", methods=["GET"])
+def hello_world():
+	return "Hello World"
 
 @application.route("/api/v1.0/job", methods=["GET"])
 def get_info():
@@ -56,7 +59,6 @@ def get_json_by_title(title):
 def page_not_found(e):
 	application.logger.warning(str(e))
 	return "Page not found", 404
-
 
 
 if __name__ == "__main__":
