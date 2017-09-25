@@ -6,7 +6,7 @@ from jobconstructor import JobConstructor
 from jobconstructor import exceptions
 
 application = Flask(__name__)
-rootpath = "/hardcoded/rootpath"
+rootpath = "/app/job_warehouse"
 jc = JobConstructor(rootpath)
 
 if application.debug is not True:
